@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body> <!-- 반복되는 부분을 컴포넌트로 만든다 -->
+    <div id="root">
+        <!-- Vue.component의 이름을 사용 -->
+        <word-relay start-word="초밥"></word-relay> <!-- 컴포넌트의 달라지는 부분을 props로 설정 -->
+        <word-relay start-word="김밥"></word-relay>
+        <word-relay start-word="떡볶이"></word-relay>
+    </div>
+    <script>
+        // 컴포넌트는 인스턴스보다 위에 있어야 한다
+        Vue.component('wordRelay', { // 전역 컴포넌트
+            // template은 하나의 tag로 감싸줘야 한다
+            template: `
+                <div>
+                    <div>{{givenWord}}</div>
+                        <form>
+                            <input type="number" ref="input" v-model="value">
+                            <button type="submit">입력</button>
+                        </form>
+                    <div>{{result}}</div>
+                </div>
+            `, // ` ` 백틱은 줄바꿈 표현이 가능하다
+            props: ['startWord'], // html에서는 kebab-case, js에서는 camelCase 사용
+            data() { // Vue 컴포넌트에서 data를 함수 형태로 만들어야 한다(Vue 인스턴스 data와의 차이점)
+                return {
+                    givenWord: this.startWord,
+                    result: '',
+                    value: ''
+                };
+            },
+            methods: {
+                onSubmit(e){
+                    e.preventDefault();
+                    if(this.givenWord[this.givenWord.length -1] === this.value[0]){
+                        this.result = '딩동댕';
+                        this.givenWord = this.value;
+                        this.value = '';
+                        this.$refs.input.focus();
+                    } else {
+                        this.result = '땡';
+                        this.value = '';
+                        this.$refs.input.focus();
+                    }
+                }
+            }
+        })
+    </script>
+    <script>
+        const app = new Vue({
+            el: '#root',
+            // data: {
+                // givenWord: '참외',
+                // result: '',
+                // value: ''
+            // },
+            // methods: {
+                // onSubmit(e){
+                //     e.preventDefault();
+                //     if(this.givenWord[this.givenWord.length -1] === this.value[0]){
+                //         this.result = '딩동댕';
+                //         this.givenWord = this.value;
+                //         this.value = '';
+                //         this.$refs.input.focus();
+                //     } else {
+                //         this.result = '땡';
+                //         this.value = '';
+                //         this.$refs.input.focus();
+                //     }
+                // }
+            // },
+        })
+    </script>
+    
+</body>
+</html>

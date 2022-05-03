@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좋아요</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div v-if="liked">Liked</div>
+        <button v-else v-on:click="onClickButton">Like</button> <!-- v-if, v-else는 형제이고 인접해야 작동한다 -->
+    </div>
+    <script>
+        const app = new Vue({ // app은 Vue의 인스턴스, 화면은 Vue가 제어하므로 프로그래머는 데이터에 집중할 수 있다
+            el: '#root', // Vue가 <div id="root">를 통제
+            data: {
+                liked: false
+            },
+            methods: {
+                onClickButton(){
+                    this.liked = true;
+                }
+            } // el, data, methods의 이름은 고정이다
+        });
+    </script>
+</body>
+</html>
