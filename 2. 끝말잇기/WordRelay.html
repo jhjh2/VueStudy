@@ -21,7 +21,7 @@
                 <div>
                     <div>{{givenWord}}</div>
                         <form>
-                            <input type="number" ref="input" v-model="value">
+                            <input type="text" ref="answer" v-model="value">
                             <button type="submit">입력</button>
                         </form>
                     <div>{{result}}</div>
@@ -42,11 +42,11 @@
                         this.result = '딩동댕';
                         this.givenWord = this.value;
                         this.value = '';
-                        this.$refs.input.focus();
+                        this.$refs.answer.focus();
                     } else {
                         this.result = '땡';
                         this.value = '';
-                        this.$refs.input.focus();
+                        this.$refs.answer.focus();
                     }
                 }
             }
